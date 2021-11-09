@@ -4,15 +4,16 @@ import matplotlib.pyplot as plt
 
 
 #from Evolution
-population = generateFirstPopulation(10,10)
+population = generateFirstPopulation(50,50)
 p = population
 fields =["Average","Best"]
 rows = []
-for x in range(50):
+for x in range(100):
     results = simulateGeneration(p)
     p = results.get("NextGen")
     a = results.get("Average")
     b = results.get("Best")
+    print("Average:",a)
     rows.append([a,b])
 
 with open("data.csv",'w',newline="") as csvfile:

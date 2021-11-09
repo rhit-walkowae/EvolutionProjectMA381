@@ -36,6 +36,7 @@ def evaluate(popList:list[individual]):
     
 #roulette Wheel Selection
 def selection(selectionPressure:int,popList:list[individual])->dict:
+    halfSize = int(len(popList)/2)
     sum_fitness = 0
     Best = -1
     num_inds = 0
@@ -48,8 +49,8 @@ def selection(selectionPressure:int,popList:list[individual])->dict:
     w = []
     for i in popList:
         w.append(i.fitnessScore/sum_fitness)
-    selectedList = np.random.choice(popList,5,replace = False,p = w)
-    d = {"survivors":selectedList,"Best":Best,"Averae":sum_fitness/num_inds}
+    selectedList = np.random.choice(popList,halfSize,replace = False,p = w)
+    d = {"survivors":selectedList,"Best":Best,"Average":sum_fitness/num_inds}
     return d
 
 def crossoverOffspring(survivorList: list[individual]):
@@ -61,7 +62,11 @@ def crossoverOffspring(survivorList: list[individual]):
         tempList2 = survivorList[i].genome[halfLength:]
         tempList += survivorList[i-1].genome[halfLength:]
         tempList2 += survivorList[i-1].genome[:halfLength]
-        
+        mutationIndex = random.randint(0,size_genome-1)
+        if(tempList[mutationIndex] == 1):
+            tempList[mutationIndex] == random.randint(0,1)
+        if(tempList2[mutationIndex] == 1):
+            tempList[mutationIndex] == random.randint(0,1)
         offspring.append(individual(tempList))
         offspring.append(individual(tempList2))
 

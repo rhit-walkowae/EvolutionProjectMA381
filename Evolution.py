@@ -20,8 +20,8 @@ def generateFirstPopulation(popSize:int,genomeSize:int)->list[individual]:
     ''' takes the populations desired size and the desired sixe of each '''
     individualList = []
     for x in range(popSize):
-        num_zeros = random.randint(0,genomeSize)
-        num_ones = genomeSize - num_zeros
+        num_ones = random.randint(0,genomeSize- genomeSize/2) 
+        num_zeros = genomeSize - num_ones
 
         listORandomBinary = [0]*num_zeros + [1]*num_ones
         random.shuffle(listORandomBinary)
@@ -64,11 +64,15 @@ def crossoverOffspring(survivorList: list[individual]):
         tempList2 += survivorList[i-1].genome[:halfLength]
         mutationIndex = random.randint(0,size_genome-1)
         if(tempList[mutationIndex] == 1):
-            tempList[mutationIndex] == random.randint(0,1)
+            tempList[mutationIndex] == 0
+        else:
+            tempList[mutationIndex]== 1
         if(tempList2[mutationIndex] == 1):
             tempList[mutationIndex] == random.randint(0,1)
         offspring.append(individual(tempList))
         offspring.append(individual(tempList2))
+
+        
 
     return offspring
 

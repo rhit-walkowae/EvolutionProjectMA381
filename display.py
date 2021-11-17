@@ -4,16 +4,19 @@ import matplotlib.pyplot as plt
 
 
 #from Evolution
-population = generateFirstPopulation(50,50)
+popS = int(input('Enter number of population members: '))
+genomeS = int(input('Enter number of genomes(even only): '))
+genS = int(input('Enter number of generations to graph: '))
+
+population = generateFirstPopulation(popS,genomeS)
 p = population
 fields =["Average","Best"]
 rows = []
-for x in range(100):
+for x in range(genS):
     results = simulateGeneration(p)
     p = results.get("NextGen")
     a = results.get("Average")
     b = results.get("Best")
-    print("Average:",a)
     rows.append([a,b])
 
 with open("data.csv",'w',newline="") as csvfile:
@@ -31,8 +34,8 @@ with open("data.csv",'w',newline="") as csvfile:
         best.append(r[1])
         avg.append(r[0])
 
-    plt.plot(generations,best, Label = "BEST")
-    plt.plot(generations,avg,Label = "AVERAGE")
+    plt.plot(generations,best, label = "BEST")
+    plt.plot(generations,avg,label = "AVERAGE")
 
     plt.legend()
     plt.xlabel('Generations')
